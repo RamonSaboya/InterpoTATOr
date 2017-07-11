@@ -47,7 +47,7 @@ Vector.prototype.crossProduct = function(vector) {
 };
 
 Vector.prototype.normalize = function() {
-  var norm = this.getNorm();
+  var norm = this.norm();
   
   if (norm == 0) {
     return;
@@ -74,7 +74,7 @@ Vector.prototype.ortogonalProjection = function(v) {
   return projection.scalarProduct(k);
 };
 
-Vector.prototype.gramSchimdt = function(vector) {
+Vector.prototype.gramSchmidt = function(vector) {
   return this.sub(vector.ortogonalProjection(this));
 };
 

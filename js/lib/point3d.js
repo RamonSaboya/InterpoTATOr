@@ -42,7 +42,7 @@ Point3D.prototype.changeBase = function(camera) {
   
   var v = view.sub(camera.c);
   
-  return v.matrixProduct(camera.alfa);
+  return v.matrixProduct(camera.alpha);
 };
 
 Point3D.prototype.projectPoint = function(camera) {
