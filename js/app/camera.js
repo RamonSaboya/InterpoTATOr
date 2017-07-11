@@ -63,6 +63,8 @@ function processCamera(data) {
   var hy = od[2];
   
   camera = new Camera(c, n, v, d, hx, hy);
+  
+  camera.genAlpha();
 }
 
 function isCameraReady() {

@@ -14,8 +14,9 @@ function uploadObject(event) {
     return function(event) {
       var data = this.result.split('\n');
       
-      if(!isCameraReady()) {
-        alert("Você precisa escolher a câmera.");
+      if(!isLightReady()) {
+        alert("Você precisa escolher a iluminação.");
+        document.getElementById(OBJECT_FILE_ID).value = "";
         
         return;
       }
@@ -32,8 +33,8 @@ function processObject(data) {
 
   var amounts = data[0].split(' ');
   
-  pointsAmount = amounts[0];
-  trianglesAmount = amounts[1];
+  pointsAmount = Number(amounts[0]);
+  trianglesAmount = Number(amounts[1]);
   
   var points2D = [];
 
@@ -48,7 +49,8 @@ function processObject(data) {
 
   for(var c = 0; c < trianglesAmount; c++) {
     var triangleData = data[c + pointsAmount + 1].split(' ');
-    var triangleRef = [pointData[0] - 1, pointData[1] - 1, pointData[2] - 1];
+    
+    var triangleRef = [triangleData[0] - 1, triangleData[1] - 1, triangleData[2] - 1];
     
     triangles.push(triangleRef);
     
