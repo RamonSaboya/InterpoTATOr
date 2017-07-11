@@ -1,6 +1,3 @@
-/* global Vector */
-/* global Point3D */
-
 const CAMERA_FILE_ID = "camera-file";
 
 var camera = null;
@@ -44,12 +41,6 @@ function uploadCamera(event) {
     return function(event) {
       var data = this.result.split('\n');
       
-      if(!isLightReady()) {
-        alert("Você precisa escolher a iluminação.");
-        
-        return;
-      }
-      
       processCamera(data);
     };
   })(file);
@@ -66,7 +57,7 @@ function processCamera(data) {
   
   var c = new Point3D(cd[0], cd[1], cd[2]);
   var n = new Vector(nd[0], nd[1], nd[2]);
-  var v = new Vector[vd[0], vd[1], vd[2]];
+  var v = new Vector(vd[0], vd[1], vd[2]);
   var d = od[0];
   var hx = od[1];
   var hy = od[2];

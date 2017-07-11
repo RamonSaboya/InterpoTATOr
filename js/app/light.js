@@ -1,8 +1,3 @@
-/* global Vector */
-/* global Point3D */
-
-/* global camera */
-
 const LIGHT_FILE_ID = "light-file"
 
 var light = null;
@@ -56,6 +51,13 @@ function uploadLight(event) {
     return function(event) {
       var data = this.result.split('\n');
       
+      if(!isCameraReady()) {
+        alert("Você precisa escolher a camera.");
+        document.getElementById(LIGHT_FILE_ID).value = "";
+        
+        return;
+      }
+      
       processLight(data);
     };
   })(file);
@@ -74,9 +76,9 @@ function processLight(data) {
   var ka = data[1];
   var ia = new Vector(iad[0], iad[1], iad[2]);
   var kd = data[3];
-  var od = new Vector[odd[0], odd[1], odd[2]];
+  var od = new Vector(odd[0], odd[1], odd[2]);
   var ks = data[4];
-  var il = new Vector[ild[0], ild[1], ild[2]];
+  var il = new Vector(ild[0], ild[1], ild[2]);
   var n = data[7];
   
   light = new Light(pl, ka, ia, kd, od, ks, il, n);
