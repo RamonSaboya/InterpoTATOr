@@ -1,4 +1,7 @@
-const CAMERA_FILE_ID = "camera-file"
+/* global Vector */
+/* global Point3D */
+
+const CAMERA_FILE_ID = "camera-file";
 
 var camera = null;
 
@@ -11,6 +14,7 @@ function Camera(c, n, v, d, hx, hy) {
   this.hy = hy;
   this.alpha = [];
 }
+
 Camera.prototype.genAlpha = function() {
   this.n.normalize();
   
@@ -23,28 +27,13 @@ Camera.prototype.genAlpha = function() {
   this.alpha.push([this.v.x, this.v.y, this.v.z]);
   this.alpha.push([this.n.x, this.n.y, this.n.z]);
 };
+
 Camera.prototype.changeBase = function(p) {
-  p = p.clone();
-  
-  var s = p.sub(this.c);
-  var bp = s.toBase(this.alfa);
-  return bp;
+  return p.changeBase(this);
 };
+
 Camera.prototype.projectPoint = function(p) {
-  var x = (this.d / this.hx) * (p.x / p.z);
-  var y = (this.d / this.hy) * (p.y / p.z);
-  
-  var pp = new Point2D(x, y);
-  
-  var spp = new Ponto2D((pp.x + 1) * width / 2, (1 - pp.y) * height / 2);
-  
-  // Criar método round point
-  spp.x = Math.round(spp.x);
-  spp.y = Math.round(spp.y);
-  
-  spp.normal = p.normal.clone();
-  
-  return spp;
+  return p.projectPoint(this);
 };
 
 function uploadCamera(event) {
