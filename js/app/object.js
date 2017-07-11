@@ -71,6 +71,14 @@ function processObject(data) {
     points2D.push(points[c].projectPoint(camera));
   }
   
+  for(var c = 0; c < triangles.length; c++) {
+    var p1 = points2D[triangles[c][0]];
+    var p2 = points2D[triangles[c][1]];
+    var p3 = points2D[triangles[c][2]];
+    
+    displayTriangles.push(new Triangle(p1, p2, p3));
+  }
+  
   zBuffer = new Array(height);
   for(var c = 0; c < zBuffer.length; c++) {
     zBuffer[c] = new Array(width);
