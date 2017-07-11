@@ -43,7 +43,14 @@ function uploadCamera(event) {
   reader.onload = (function(file) {
     return function(event) {
       var data = this.result.split('\n');
-      console.log(data);
+      
+      if(!isLightReady()) {
+        alert("Você precisa escolher a iluminação.");
+        
+        return;
+      }
+      
+      processCamera(data);
     };
   })(file);
   reader.readAsText(file);
@@ -70,3 +77,5 @@ function processCamera(data) {
 function isCameraReady() {
   return camera != null;
 }
+
+document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera, false);

@@ -55,7 +55,8 @@ function uploadLight(event) {
   reader.onload = (function(file) {
     return function(event) {
       var data = this.result.split('\n');
-      console.log(data);
+      
+      processLight(data);
     };
   })(file);
   reader.readAsText(file);
@@ -86,3 +87,5 @@ function processLight(data) {
 function isLightReady() {
   return light != null;
 }
+
+document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, false);

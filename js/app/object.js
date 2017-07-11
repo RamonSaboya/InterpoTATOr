@@ -98,3 +98,5 @@ function isObjectReady() {
   
   return points.length == pointsAmount && triangles.length == trianglesAmount;
 }
+
+document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject, false);
