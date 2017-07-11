@@ -12,7 +12,7 @@ window.onresize = window.onload = function(event) {
   document.getElementById('canvas').height = height;
 };
 
-var displayTriangless = [];
+var displayTriangles = [];
 var zBuffer;
 
 function draw() {
@@ -32,5 +32,14 @@ function draw() {
     alert("Você precisa definir o objeto.");
     
     return;
+  }
+  
+  ctx.clearRect(0, 0, width, height);
+  
+  for(var c = 0; c < displayTriangles.length; c++) {
+    var triangle = displayTriangles[c];
+    
+    ctx.fillStyle = "red";
+    ctx.fillRect(triangle.p1.x, triangle.p1.y, 1, 1);
   }
 }
