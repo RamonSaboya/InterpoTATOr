@@ -4,7 +4,6 @@
     <script src="jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8">
-    <script src="js/app/main.js" charset="utf-8"></script>
   </head>
   <body>
     <div id="header">
@@ -29,14 +28,17 @@
     </div>
     <div id="footer">
       <div id="config">
+        <form id="object" class="config-container">
+          <div class="config-item">Objeto</div>
+          <input id="object-file" class="config-item" type="file" value="file">
+        </form>
         <div class="config-container">
-          Objeto
+          <div class="config-item">Camera</div>
+          <input id="camera-file" class="config-item" type="file" value="file">
         </div>
         <div class="config-container">
-          Camera
-        </div>
-        <div class="config-container">
-          Ilumina&ccedil;&atilde;o
+          <div class="config-item">Ilumina&ccedil;&atilde;o</div>
+          <input id="light-file" class="config-item" type="file" value="file">
         </div>
       </div>
       <div id="credits">
@@ -46,4 +48,6 @@
       </div>
     </div>
   </body>
+  <script src="js/app/setup.js" charset="utf-8"></script>
+  <script src="js/app/camera.js" charset="utf-8"></script>
 </html>
