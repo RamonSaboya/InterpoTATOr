@@ -1,6 +1,8 @@
 /* global Vector */
 /* global Point3D */
 
+/* global camera */
+
 const LIGHT_FILE_ID = "light-file"
 
 var light = null;
@@ -77,6 +79,8 @@ function processLight(data) {
   var n = data[7];
   
   light = new Light(pl, ka, ia, kd, od, ks, il, n);
+  
+  light.pl = light.pl.projectPoint(camera);
 }
 
 function isLightReady() {
