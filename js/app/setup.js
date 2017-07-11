@@ -11,3 +11,26 @@ window.onresize = window.onload = function(event) {
   document.getElementById('canvas').width = width;
   document.getElementById('canvas').height = height;
 };
+
+var displayTriangless = [];
+var zBuffer;
+
+function draw() {
+  if(!isLightReady()) {
+    alert("Você precisa definir a iluminação.");
+    
+    return;
+  }
+  
+  if(!isCameraReady()) {
+    alert("Você precisa definir a câmera.");
+    
+    return;
+  }
+  
+  if(!isObjectReady()) {
+    alert("Você precisa definir o objeto.");
+    
+    return;
+  }
+}
