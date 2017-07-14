@@ -18,14 +18,14 @@ var triangles2D = [];
 var triangles3D = [];
 
 function draw() {
-  if(!isLightReady()) {
-    alert("Você precisa definir a iluminação.");
+  if(!isCameraReady()) {
+    alert("Você precisa definir a câmera.");
     
     return;
   }
   
-  if(!isCameraReady()) {
-    alert("Você precisa definir a câmera.");
+  if(!isAmbientReady()) {
+    alert("Você precisa definir o ambiente.");
     
     return;
   }

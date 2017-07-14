@@ -1,11 +1,11 @@
-const LIGHT_FILE_ID = "light-file"
+const AMBIENT_FILE_ID = "ambient-file"
 
-var light = null
+var ambient = null
 
 var minBB = Infinity;
 var maxBB = -Infinity;
 
-function Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
+function Ambient(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.pl = pl;
   this.ka = ka;
   this.ia = ia;
@@ -18,7 +18,7 @@ function Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.od2 = od2;
 }
 
-Light.prototype.color = function(l, n, v, r, p) {
+Ambient.prototype.color = function(l, n, v, r, p) {
   var a;
   
   var color = this.ia.scalarProduct(this.ka);
@@ -68,7 +68,7 @@ Light.prototype.color = function(l, n, v, r, p) {
   return color;
 };
 
-Light.prototype.getAxis = function(point) {
+Ambient.prototype.getAxis = function(point) {
   if(this.ex == 0) {
     return point.x;
   } else if(this.ex == 1) {
@@ -78,7 +78,7 @@ Light.prototype.getAxis = function(point) {
   }
 }
 
-function uploadLight(event) {
+function uploadAmbient(event) {
   var file = event.target.files[0];
 
   var reader = new FileReader();
@@ -88,21 +88,21 @@ function uploadLight(event) {
       
       if(!isCameraReady()) {
         alert("Você precisa escolher a camera.");
-        document.getElementById(LIGHT_FILE_ID).value = "";
+        document.getElementById(AMBIENT_FILE_ID).value = "";
         
         return;
       }
       
-      processLight(data);
+      processAmbient(data);
     };
   })(file);
   reader.readAsText(file);
 }
 
-document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, false);
+document.getElementById(AMBIENT_FILE_ID).addEventListener('change', uploadAmbient, false);
 
-function processLight(data) {
-  light = null;
+function processAmbient(data) {
+  ambient = null;
   
   var pld = data[0].split(' ');
   var iad = data[2].split(' ');
@@ -127,11 +127,11 @@ function processLight(data) {
     od2 = new Vector(od2d[0], od2d[1], od2d[2]);
   }
   
-  light = new Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2);
+  ambient = new Ambient(pl, ka, ia, kd, od1, ks, il, n, ex, od2);
   
-  light.pl = light.pl.changeBase(camera);
+  ambient.pl = ambient.pl.changeBase(camera);
 }
 
-function isLightReady() {
-  return light != null;
+function isAmbientReady() {
+  return ambient != null;
 }

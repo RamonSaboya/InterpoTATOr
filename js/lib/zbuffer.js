@@ -109,7 +109,7 @@ function scanline(y, minX, maxX, p1, p2, p3) {
       
       n = new Vector(nx, ny, nz);
       v = p.toVector().scalarProduct(-1);
-      l = light.pl.sub(p).toVector();
+      l = ambient.pl.sub(p).toVector();
       
       n.normalize();
       v.normalize();
@@ -120,14 +120,14 @@ function scanline(y, minX, maxX, p1, p2, p3) {
       }
       
       if(n.dotProduct(l) < 0) {
-        color = light.color(l, null, v, null, p);
+        color = ambient.color(l, null, v, null, p);
       } else {
         r = n.scalarProduct(2 * n.dotProduct(l)).sub(l);
         
         if(r.dotProduct(v) < 0) {
-          color = light.color(l, n, v, null, p);
+          color = ambient.color(l, n, v, null, p);
         } else {
-          color = light.color(l, n, v, r, p);
+          color = ambient.color(l, n, v, r, p);
         }
       }
   

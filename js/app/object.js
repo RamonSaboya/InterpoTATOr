@@ -14,8 +14,8 @@ function uploadObject(event) {
     return function(event) {
       var data = this.result.split('\n');
       
-      if(!isLightReady()) {
-        alert("Você precisa escolher a iluminação.");
+      if(!isAmbientReady()) {
+        alert("Você precisa escolher o ambiente.");
         document.getElementById(OBJECT_FILE_ID).value = "";
         
         return;
@@ -49,9 +49,9 @@ function processObject(data) {
     
     point = point.changeBase(camera);
     
-    if(light.ex != null) {
-      minBB = Math.min(minBB, light.getAxis(point));
-      maxBB = Math.max(maxBB, light.getAxis(point));
+    if(ambient.ex != null) {
+      minBB = Math.min(minBB, ambient.getAxis(point));
+      maxBB = Math.max(maxBB, ambient.getAxis(point));
     }
     
     points.push(point);
