@@ -4,7 +4,6 @@ var light = null;
 
 function Light(pl, ka, ia, kd, od, ks, il, n) {
   this.pl = pl;
-  this.originalPl = pl;
   this.ka = ka;
   this.ia = ia;
   this.kd = kd;
@@ -14,33 +13,48 @@ function Light(pl, ka, ia, kd, od, ks, il, n) {
   this.n = n;
 }
 
-Light.prototype.getCor = function(L, N, V, R, p) {
+Light.prototype.color = function(l, n, v, r, p, x, y) {
   var a;
-  var l = this.ia.clone();
-  l = l.multiplicar(this.ka); // Ia * Ka
-  if(N != null) {
-    var pe_nl = N.produtoEscalar(L); // <N, L>
-    a = new Vector(this.od.x*this.il.x, this.od.y*this.il.y, this.od.z*this.il.z); // ISSO É O CORRETO
+  
+  var color = this.ia.scalarProduct(this.ka);
 
-    a = a.multiplicar(this.kd*pe_nl); //ISSO É O CORRETO
+  if(n != null) {
+    var nl = n.dotProduct(l);
+    
+    // var od = texture.getPixel(x, y);
+    
+    // a = new Vector(od.red, od.green, od.blue);
+    
+    // var pixelTexture = texture[0].getPixel();
+    
+    a = new Vector(this.od.x * this.il.x, this.od.y * this.il.y, this.od.z * this.il.z);
+    a = a.scalarProduct(this.kd * nl);
 
-    l = new Vector(l.x+a.x, l.y+a.y, l.z+a.z); //ISSO É O CERTO
+    color = color.add(a);
   }
-  if(R != null) {
-    var pe_rv = R.produtoEscalar(V); // <R, V>
-    var aux = pe_rv;
-    for (var i = 0; i < this.n; i++) pe_rv *= aux; // n é a cte de rugosidade | <R, V> ^n
-    a = this.il.clone(); // vetor Il
-    a = a.multiplicar(this.ks*pe_rv); // Ks * <R, V>^n * Il
-    l = l.add(a); // l + Ks * <R, V>^n * Il
+  
+  if(r != null) {
+    var rv = r.dotProduct(v);
+    
+    var aux = rv;
+    for (var c = 0; c < this.n; c++) {
+      rv *= aux;
+    }
+    
+    a = this.il.scalarProduct(this.ks * rv);
+    
+    color = color.add(a);
   }
-  l.x = Math.round(l.x);
-  l.y = Math.round(l.y);
-  l.z = Math.round(l.z);
-  l.x = Math.min(l.x,255);
-  l.y = Math.min(l.y,255);
-  l.z = Math.min(l.z,255);
-  return l;
+  
+  color.x = Math.round(color.x);
+  color.y = Math.round(color.y);
+  color.z = Math.round(color.z);
+  
+  color.x = Math.min(color.x, 255);
+  color.y = Math.min(color.y, 255);
+  color.z = Math.min(color.z, 255);
+  
+  return color;
 };
 
 function uploadLight(event) {
@@ -64,6 +78,8 @@ function uploadLight(event) {
   reader.readAsText(file);
 }
 
+document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, false);
+
 function processLight(data) {
   light = null;
   
@@ -77,17 +93,15 @@ function processLight(data) {
   var ia = new Vector(iad[0], iad[1], iad[2]);
   var kd = data[3];
   var od = new Vector(odd[0], odd[1], odd[2]);
-  var ks = data[4];
+  var ks = data[5];
   var il = new Vector(ild[0], ild[1], ild[2]);
   var n = data[7];
   
   light = new Light(pl, ka, ia, kd, od, ks, il, n);
   
-  light.pl = light.pl.projectPoint(camera);
+  light.pl = light.pl.changeBase(camera);
 }
 
 function isLightReady() {
   return light != null;
 }
-
-document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, false);

@@ -30,9 +30,9 @@ Point3D.prototype.scalarProduct = function(k) {
 };
 
 Point3D.prototype.matrixProduct = function(matrix) {
-  var x = (matrix[0][0] * this.x) + (matrix[0][1] * this.y) + (matrix[0][2] * this.z);
-  var y = (matrix[1][0] * this.x) + (matrix[1][1] * this.y) + (matrix[1][2] * this.z);
-  var z = (matrix[2][0] * this.x) + (matrix[2][1] * this.y) + (matrix[2][2] * this.z);
+  var x = (this.x * matrix[0][0]) + (this.y * matrix[0][1]) + (this.z * matrix[0][2]);
+  var y = (this.x * matrix[1][0]) + (this.y * matrix[1][1]) + (this.z * matrix[1][2]);
+  var z = (this.x * matrix[2][0]) + (this.y * matrix[2][1]) + (this.z * matrix[2][2]);
 
   return new Point3D(x, y, z);
 };
@@ -42,30 +42,34 @@ Point3D.prototype.changeBase = function(camera) {
   
   var v = view.sub(camera.c);
   
-  return v.matrixProduct(camera.alpha);
+  var r = v.matrixProduct(camera.alpha);
+  
+  return r;
 };
 
-Point3D.prototype.projectPoint = function(camera) {
+Point3D.prototype.projectPoint = function(camera, index) {
   var x = (camera.d / camera.hx) * (this.x / this.z);
   var y = (camera.d / camera.hy) * (this.y / this.z);
   
-  var pp = new Point2D(x, y);
+  var pp = new Point2D((x + 1) * width / 2, (1 - y) * height / 2, index);
   
-  var spp = new Point2D((pp.x + 1) * width / 2, (1 - pp.y) * height / 2);
+  pp.round();
   
-  spp = spp.round();
+  pp.normal = this.normal.clone();
   
-  spp.normal = this.normal.clone();
-  
-  return spp;
+  return pp;
 };
 
 Point3D.prototype.round = function() {
-  var x = Math.round(this.x);
-  var y = Math.round(this.y);
-  var z = Math.round(this.z);
+  var x = Math.floor(this.x);
+  var y = Math.floor(this.y);
+  var z = Math.floor(this.z);
   
   return new Point3D(x, y, z);
+};
+
+Point3D.prototype.toVector = function() {
+  return new Vector(this.x, this.y, this.z);
 };
 
 Point3D.prototype.clone = function() {

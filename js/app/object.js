@@ -21,13 +21,25 @@ function uploadObject(event) {
         return;
       }
       
+      if(!isTextureReady()) {
+        alert("Você precisa escolher a textura.");
+        document.getElementById(OBJECT_FILE_ID).value = "";
+        
+        return;
+      }
+      
       processObject(data);
     };
   })(file);
   reader.readAsText(file);
 }
 
+document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject, false);
+
 function processObject(data) {
+  triangles2D = [];
+  triangles3D = [];
+  
   points = [];
   triangles = [];
 
@@ -70,15 +82,23 @@ function processObject(data) {
   for(var c = 0; c < points.length; c++) {
     points[c].normal.normalize();
     
-    points2D.push(points[c].projectPoint(camera));
+    points2D.push(points[c].projectPoint(camera, c));
   }
   
   for(var c = 0; c < triangles.length; c++) {
-    var p1 = points2D[triangles[c][0]];
-    var p2 = points2D[triangles[c][1]];
-    var p3 = points2D[triangles[c][2]];
+    var p1 = points[triangles[c][0]];
+    var p2 = points[triangles[c][1]];
+    var p3 = points[triangles[c][2]];
     
-    displayTriangles.push(new Triangle(p1, p2, p3));
+    var triangle3D = new Triangle(p1, p2, p3);
+    triangle3D.calculateNormal();
+    triangles3D.push(triangle3D);
+    
+    p1 = points2D[triangles[c][0]];
+    p2 = points2D[triangles[c][1]];
+    p3 = points2D[triangles[c][2]];
+    
+    triangles2D.push(new Triangle(p1, p2, p3));
   }
   
   zBuffer = new Array(height);
@@ -100,5 +120,3 @@ function isObjectReady() {
   
   return points.length == pointsAmount && triangles.length == trianglesAmount;
 }
-
-document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject, false);

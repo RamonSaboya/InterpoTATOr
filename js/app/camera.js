@@ -25,12 +25,12 @@ Camera.prototype.genAlpha = function() {
   this.alpha.push([this.n.x, this.n.y, this.n.z]);
 };
 
-Camera.prototype.changeBase = function(p) {
-  return p.changeBase(this);
+Camera.prototype.changeBase = function(point) {
+  return point.changeBase(this);
 };
 
-Camera.prototype.projectPoint = function(p) {
-  return p.projectPoint(this);
+Camera.prototype.projectPoint = function(point) {
+  return point.projectPoint(this);
 };
 
 function uploadCamera(event) {
@@ -46,6 +46,8 @@ function uploadCamera(event) {
   })(file);
   reader.readAsText(file);
 }
+
+document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera, false);
 
 function processCamera(data) {
   camera = null;
@@ -70,5 +72,3 @@ function processCamera(data) {
 function isCameraReady() {
   return camera != null;
 }
-
-document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera, false);

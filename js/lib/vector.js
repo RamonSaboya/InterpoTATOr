@@ -5,7 +5,7 @@ function Vector (x, y, z) {
 }
 
 Vector.prototype.cosineBetween = function(vector) {
-  return this.dotProduct(vector) / (this.getNorm() * vector.getNorm());
+  return this.dotProduct(vector) / (this.norm() * vector.norm());
 };
 
 Vector.prototype.add = function(vector) {
@@ -31,11 +31,7 @@ Vector.prototype.norm = function() {
 };
 
 Vector.prototype.dotProduct = function(vector) {
-  var xProduct = this.x * vector.x;
-  var yProduct = this.y * vector.y;
-  var zProduct = this.z * vector.z;
-  
-  return xProduct + yProduct + zProduct;
+  return (this.x * vector.x + this.y * vector.y + this.z * vector.z);
 };
 
 Vector.prototype.crossProduct = function(vector) {
@@ -66,8 +62,8 @@ Vector.prototype.scalarProduct = function(constant) {
   return new Vector(x, y, z);
 };
 
-Vector.prototype.ortogonalProjection = function(v) {
-  var k = this.dotProduct(v) / this.dotProduct(this);
+Vector.prototype.orthogonalProjection = function(vector) {
+  var k = this.dotProduct(vector) / this.dotProduct(this);
   
   var projection = this.clone();
 
@@ -75,7 +71,7 @@ Vector.prototype.ortogonalProjection = function(v) {
 };
 
 Vector.prototype.gramSchmidt = function(vector) {
-  return this.sub(vector.ortogonalProjection(this));
+  return this.sub(vector.orthogonalProjection(this));
 };
 
 Vector.prototype.clone = function() {

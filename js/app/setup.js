@@ -12,8 +12,10 @@ window.onresize = window.onload = function(event) {
   document.getElementById('canvas').height = height;
 };
 
-var displayTriangles = [];
 var zBuffer;
+
+var triangles2D = [];
+var triangles3D = [];
 
 function draw() {
   if(!isLightReady()) {
@@ -28,6 +30,12 @@ function draw() {
     return;
   }
   
+  if(!isTextureReady()) {
+    alert("Você precisa definir a textura.");
+    
+    return;
+  }
+  
   if(!isObjectReady()) {
     alert("Você precisa definir o objeto.");
     
@@ -36,10 +44,14 @@ function draw() {
   
   ctx.clearRect(0, 0, width, height);
   
-  for(var c = 0; c < displayTriangles.length; c++) {
-    var triangle = displayTriangles[c];
+  for(var c = 0; c < triangles2D.length; c++) {
+    var triangle = triangles2D[c];
     
-    ctx.fillStyle = "red";
-    ctx.fillRect(triangle.p1.x, triangle.p1.y, 1, 1);
+    processTriangle(triangle, c);
   }
+}
+
+function paint(x, y, color) {
+  ctx.fillStyle = "rgb(" + color.x + ", " + color.y + ", " + color.z + ")";
+  ctx.fillRect(x, y, 1, 1);
 }
