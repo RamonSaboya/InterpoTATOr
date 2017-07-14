@@ -8,8 +8,8 @@ function Point2D (x, y, index) {
 }
 
 Point2D.prototype.round = function() {
-  this.x = Math.round(this.x);
-  this.y = Math.round(this.y);
+  this.x = Math.floor(this.x);
+  this.y = Math.floor(this.y);
 };
 
 Point2D.prototype.clone = function() {
