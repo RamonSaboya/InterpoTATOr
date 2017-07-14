@@ -3,12 +3,12 @@
     <title>InterpoTATOr</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8">
-    <script src="js/lib/jquery-3.2.1.min.js"></script>
     <script src="js/lib/barycenter.js"></script>
     <script src="js/lib/vector.js"></script>
     <script src="js/lib/point2d.js"></script>
     <script src="js/lib/point3d.js"></script>
     <script src="js/lib/triangle.js"></script>
+    <script src="js/lib/zbuffer.js"></script>
   </head>
   <body>
     <div id="header">
@@ -45,6 +45,10 @@
           <div class="config-item">Ilumina&ccedil;&atilde;o</div>
           <input id="light-file" class="config-item" type="file" value="file">
         </div>
+        <div class="config-container">
+          <div class="config-item">Textura</div>
+          <input id="texture-file" class="config-item" type="file" value="file">
+        </div>
       </div>
       <div id="credits">
         <p title="pruuu">Jo&atilde;o Filipe Moura</p>
@@ -56,5 +60,6 @@
   <script src="js/app/setup.js" charset="utf-8"></script>
   <script src="js/app/camera.js" charset="utf-8"></script>
   <script src="js/app/light.js" charset="utf-8"></script>
+  <script src="js/app/texture.js" charset="utf-8"></script>
   <script src="js/app/object.js" charset="utf-8"></script>
 </html>
