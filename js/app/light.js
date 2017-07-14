@@ -2,15 +2,17 @@ const LIGHT_FILE_ID = "light-file"
 
 var light = null;
 
-function Light(pl, ka, ia, kd, od, ks, il, n) {
+function Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.pl = pl;
   this.ka = ka;
   this.ia = ia;
   this.kd = kd;
-  this.od = od;
+  this.od1 = od1;
   this.ks = ks;
   this.il = il;
   this.n = n;
+  this.ex = ex;
+  this.od2 = od2;
 }
 
 Light.prototype.color = function(l, n, v, r, p, x, y) {
@@ -79,19 +81,28 @@ function processLight(data) {
   
   var pld = data[0].split(' ');
   var iad = data[2].split(' ');
-  var odd = data[4].split(' ');
+  var od1d = data[4].split(' ');
   var ild = data[6].split(' ');
   
   var pl = new Point3D(pld[0], pld[1], pld[2]);
   var ka = data[1];
   var ia = new Vector(iad[0], iad[1], iad[2]);
   var kd = data[3];
-  var od = new Vector(odd[0], odd[1], odd[2]);
+  var od1 = new Vector(od1d[0], od1d[1], od1d[2]);
   var ks = data[5];
   var il = new Vector(ild[0], ild[1], ild[2]);
   var n = data[7];
+  var ex = null;
+  var od2 = null;
   
-  light = new Light(pl, ka, ia, kd, od, ks, il, n);
+  if(data.length > 8) {
+    ex = data[8];
+    
+    var od2d = data[9].split(' ');
+    od2 = new Vector(od2d[0], od2d[1], od2d[2]);
+  }
+  
+  light = new Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2);
   
   light.pl = light.pl.changeBase(camera);
 }
