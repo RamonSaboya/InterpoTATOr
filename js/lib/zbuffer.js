@@ -62,7 +62,7 @@ function processTriangle(triangle, index) {
   }
   
   for(var y = minY; y <= maxY; y++) {
-    scanline(y, minX, maxX, p1, p2, p3, index);
+    scanline(y, Math.floor(minX), Math.floor(maxX), p1, p2, p3, index);
     
     if(alternate && (y == p2.y || y == p3.y)) {
       if(Math.abs(y - p2.y) == 0) {
@@ -85,7 +85,7 @@ function processTriangle(triangle, index) {
 }
 
 function scanline(y, minX, maxX, p1, p2, p3) {
-  for(var x = Math.floor(minX); x <= Math.floor(maxX); x++) {
+  for(var x = minX; x <= maxX; x++) {
     var barycenter = findBarycenter(x, y, p1, p2, p3);
     
     var p13D = points[p1.index];
