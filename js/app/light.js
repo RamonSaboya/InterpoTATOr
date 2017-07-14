@@ -1,6 +1,9 @@
 const LIGHT_FILE_ID = "light-file"
 
-var light = null;
+var light = null
+
+var minBB = Infinity;
+var maxBB = -Infinity;
 
 function Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.pl = pl;
@@ -52,6 +55,16 @@ Light.prototype.color = function(l, n, v, r, p, x, y) {
   
   return color;
 };
+
+Light.prototype.getAxis = function(point) {
+  if(this.ex == 0) {
+    return point.x;
+  } else if(this.ex == 1) {
+    return point.y;
+  } else {
+    return point.z;
+  }
+}
 
 function uploadLight(event) {
   var file = event.target.files[0];

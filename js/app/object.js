@@ -49,6 +49,9 @@ function processObject(data) {
     
     point = point.changeBase(camera);
     
+    minBB = Math.min(minBB, light.getAxis(point));
+    maxBB = Math.max(maxBB, light.getAxis(point));
+    
     points.push(point);
   }
 
