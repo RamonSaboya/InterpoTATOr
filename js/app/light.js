@@ -21,12 +21,6 @@ Light.prototype.color = function(l, n, v, r, p, x, y) {
   if(n != null) {
     var nl = n.dotProduct(l);
     
-    // var od = texture.getPixel(x, y);
-    
-    // a = new Vector(od.red, od.green, od.blue);
-    
-    // var pixelTexture = texture[0].getPixel();
-    
     a = new Vector(this.od.x * this.il.x, this.od.y * this.il.y, this.od.z * this.il.z);
     a = a.scalarProduct(this.kd * nl);
 

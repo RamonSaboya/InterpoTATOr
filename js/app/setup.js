@@ -30,12 +30,6 @@ function draw() {
     return;
   }
   
-  if(!isTextureReady()) {
-    alert("Você precisa definir a textura.");
-    
-    return;
-  }
-  
   if(!isObjectReady()) {
     alert("Você precisa definir o objeto.");
     

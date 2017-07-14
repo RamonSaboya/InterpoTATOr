@@ -21,13 +21,6 @@ function uploadObject(event) {
         return;
       }
       
-      if(!isTextureReady()) {
-        alert("Você precisa escolher a textura.");
-        document.getElementById(OBJECT_FILE_ID).value = "";
-        
-        return;
-      }
-      
       processObject(data);
     };
   })(file);
