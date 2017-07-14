@@ -2,6 +2,8 @@ const CAMERA_FILE_ID = "camera-file";
 
 var camera = null;
 
+var lastCameraData = null;
+
 function Camera(c, n, v, d, hx, hy) {
   this.c = c;
   this.n = n;
@@ -50,6 +52,12 @@ function uploadCamera(event) {
 document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera, false);
 
 function processCamera(data) {
+  if(data == null) {
+    return;
+  }
+  
+  lastCameraData = data;
+  
   camera = null;
   
   var cd = data[0].split(' ');
@@ -67,6 +75,11 @@ function processCamera(data) {
   camera = new Camera(c, n, v, d, hx, hy);
   
   camera.genAlpha();
+  
+  document.getElementById(CAMERA_FILE_ID).value = "";
+  
+  processAmbient(lastAmbientData);
+  processObject(lastObjectData);
 }
 
 function isCameraReady() {

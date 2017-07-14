@@ -1,9 +1,11 @@
 const AMBIENT_FILE_ID = "ambient-file"
 
-var ambient = null
+var ambient = null;
 
 var minBB = Infinity;
 var maxBB = -Infinity;
+
+var lastAmbientData = null;
 
 function Ambient(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.pl = pl;
@@ -86,13 +88,6 @@ function uploadAmbient(event) {
     return function(event) {
       var data = this.result.split('\n');
       
-      if(!isCameraReady()) {
-        alert("Você precisa escolher a camera.");
-        document.getElementById(AMBIENT_FILE_ID).value = "";
-        
-        return;
-      }
-      
       processAmbient(data);
     };
   })(file);
@@ -102,7 +97,16 @@ function uploadAmbient(event) {
 document.getElementById(AMBIENT_FILE_ID).addEventListener('change', uploadAmbient, false);
 
 function processAmbient(data) {
+  if(data == null) {
+    return;
+  }
+  
+  lastAmbientData = data;
+  
   ambient = null;
+
+  minBB = Infinity;
+  maxBB = -Infinity;
   
   var pld = data[0].split(' ');
   var iad = data[2].split(' ');
@@ -130,6 +134,10 @@ function processAmbient(data) {
   ambient = new Ambient(pl, ka, ia, kd, od1, ks, il, n, ex, od2);
   
   ambient.pl = ambient.pl.changeBase(camera);
+  
+  document.getElementById(AMBIENT_FILE_ID).value = "";
+  
+  processObject(lastObjectData);
 }
 
 function isAmbientReady() {

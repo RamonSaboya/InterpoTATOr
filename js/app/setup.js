@@ -10,6 +10,10 @@ window.onresize = window.onload = function(event) {
   
   document.getElementById('canvas').width = width;
   document.getElementById('canvas').height = height;
+  
+  processCamera(lastCameraData);
+  processAmbient(lastAmbientData);
+  processObject(lastObjectData);
 };
 
 var zBuffer;
@@ -18,24 +22,6 @@ var triangles2D = [];
 var triangles3D = [];
 
 function draw() {
-  if(!isCameraReady()) {
-    alert("Você precisa definir a câmera.");
-    
-    return;
-  }
-  
-  if(!isAmbientReady()) {
-    alert("Você precisa definir o ambiente.");
-    
-    return;
-  }
-  
-  if(!isObjectReady()) {
-    alert("Você precisa definir o objeto.");
-    
-    return;
-  }
-  
   ctx.clearRect(0, 0, width, height);
   
   for(var c = 0; c < triangles2D.length; c++) {

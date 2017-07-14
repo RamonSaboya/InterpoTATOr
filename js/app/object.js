@@ -6,6 +6,8 @@ var triangles = [];
 var pointsAmount = 0;
 var trianglesAmount = 0;
 
+var lastObjectData = null;
+
 function uploadObject(event) {
   var file = event.target.files[0];
 
@@ -15,7 +17,14 @@ function uploadObject(event) {
       var data = this.result.split('\n');
       
       if(!isAmbientReady()) {
-        alert("Você precisa escolher o ambiente.");
+        alert("Você precisa definir o ambiente.");
+        document.getElementById(OBJECT_FILE_ID).value = "";
+        
+        return;
+      }
+      
+      if(!isCameraReady()) {
+        alert("Você precisa definir a câmera.");
         document.getElementById(OBJECT_FILE_ID).value = "";
         
         return;
@@ -30,6 +39,12 @@ function uploadObject(event) {
 document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject, false);
 
 function processObject(data) {
+  if(data == null) {
+    return;
+  }
+  
+  lastObjectData = data;
+  
   triangles2D = [];
   triangles3D = [];
   
@@ -107,6 +122,8 @@ function processObject(data) {
       zBuffer[c][cpp] = Infinity;
     }
   }
+  
+  document.getElementById(OBJECT_FILE_ID).value = "";
   
   draw();
 }
