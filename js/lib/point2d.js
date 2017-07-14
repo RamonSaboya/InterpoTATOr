@@ -1,16 +1,17 @@
-function Point2D (x, y) {
+function Point2D (x, y, index) {
   this.x = x;
   this.y = y;
+  
+  this.index = index;
+  
   this.normal = new Vector(0, 0, 0);
 }
 
 Point2D.prototype.round = function() {
-  var x = Math.round(this.x);
-  var y = Math.round(this.y);
-  
-  return new Point2D(x, y);
+  this.x = Math.floor(this.x);
+  this.y = Math.floor(this.y);
 };
 
 Point2D.prototype.clone = function() {
-  return new Point2D(this.x, this.y);
+  return new Point2D(this.x, this.y, index);
 };
