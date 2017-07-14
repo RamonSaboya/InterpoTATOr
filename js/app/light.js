@@ -18,7 +18,7 @@ function Light(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.od2 = od2;
 }
 
-Light.prototype.color = function(l, n, v, r, p, x, y) {
+Light.prototype.color = function(l, n, v, r, p) {
   var a;
   
   var color = this.ia.scalarProduct(this.ka);
@@ -26,7 +26,19 @@ Light.prototype.color = function(l, n, v, r, p, x, y) {
   if(n != null) {
     var nl = n.dotProduct(l);
     
-    a = new Vector(this.od.x * this.il.x, this.od.y * this.il.y, this.od.z * this.il.z);
+    var od = this.od1;
+    
+    if(this.ex != null) {
+      var f = (this.getAxis(p) - minBB) / (maxBB - minBB);
+      
+      var odX = (1 - f) * this.od1.x + f * this.od2.x;
+      var odY = (1 - f) * this.od1.y + f * this.od2.y;
+      var odZ = (1 - f) * this.od1.z + f * this.od2.z;
+      
+      od = new Vector(odX, odY, odZ);
+    }
+    
+    a = new Vector(od.x * this.il.x, od.y * this.il.y, od.z * this.il.z);
     a = a.scalarProduct(this.kd * nl);
 
     color = color.add(a);
@@ -108,7 +120,7 @@ function processLight(data) {
   var ex = null;
   var od2 = null;
   
-  if(data.length > 8) {
+  if(data.length > 9) {
     ex = data[8];
     
     var od2d = data[9].split(' ');

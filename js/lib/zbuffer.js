@@ -120,14 +120,14 @@ function scanline(y, minX, maxX, p1, p2, p3) {
       }
       
       if(n.dotProduct(l) < 0) {
-        color = light.color(l, null, v, null, p, x, y);
+        color = light.color(l, null, v, null, p);
       } else {
         r = n.scalarProduct(2 * n.dotProduct(l)).sub(l);
         
         if(r.dotProduct(v) < 0) {
-          color = light.color(l, n, v, null, p, x, y);
+          color = light.color(l, n, v, null, p);
         } else {
-          color = light.color(l, n, v, r, p, x, y);
+          color = light.color(l, n, v, r, p);
         }
       }
   
