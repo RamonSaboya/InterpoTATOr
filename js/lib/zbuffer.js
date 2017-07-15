@@ -61,8 +61,8 @@ function processTriangle(triangle, index) {
     alternate = false;
   }
   
-  for(var y = minY; y <= maxY; y++) {
-    scanline(y, Math.floor(minX), Math.floor(maxX), p1, p2, p3, index);
+  for(var y = Math.max(minY, 0); y <= Math.min(maxY, height - 1); y++) {
+    scanline(y, Math.max(Math.floor(minX), 0), Math.min(Math.floor(maxX), width - 1), p1, p2, p3, index);
     
     if(alternate && (y == p2.y || y == p3.y)) {
       if(Math.abs(y - p2.y) == 0) {
