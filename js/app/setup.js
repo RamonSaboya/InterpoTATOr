@@ -22,7 +22,6 @@ var triangles2D = [];
 var triangles3D = [];
 
 function draw() {
-  console.log('oi');
   ctx.clearRect(0, 0, width, height);
   
   for(var c = 0; c < triangles2D.length; c++) {
