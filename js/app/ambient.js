@@ -20,7 +20,7 @@ function Ambient(pl, ka, ia, kd, od1, ks, il, n, ex, od2) {
   this.od2 = od2;
 }
 
-Ambient.prototype.color = function(l, n, v, r, p) {
+Ambient.prototype.color = function(l, n, v, r, p, colores) {
   var a;
   
   var color = this.ia.scalarProduct(this.ka);
@@ -39,6 +39,8 @@ Ambient.prototype.color = function(l, n, v, r, p) {
       
       od = new Vector(odX, odY, odZ);
     }
+    
+    od = colores;
     
     a = new Vector(od.x * this.il.x, od.y * this.il.y, od.z * this.il.z);
     a = a.scalarProduct(this.kd * nl);

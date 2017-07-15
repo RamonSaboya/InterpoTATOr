@@ -33,6 +33,10 @@ function processTriangle(triangle, index) {
     return;
   }
   
+  if(outOfBounds(p1, p2, p3)) {
+    return;
+  }
+  
   var minY = p1.y;
   var maxY = Math.max(p2.y, p3.y);
   
@@ -61,8 +65,8 @@ function processTriangle(triangle, index) {
     alternate = false;
   }
   
-  for(var y = minY; y <= maxY; y++) {
-    scanline(y, Math.floor(minX), Math.floor(maxX), p1, p2, p3, index);
+  for(var y = Math.max(minY, 0); y <= Math.min(maxY, height - 1); y++) {
+    scanline(y, Math.max(Math.floor(minX), 0), Math.min(Math.floor(maxX), width - 1), p1, p2, p3, index);
     
     if(alternate && (y == p2.y || y == p3.y)) {
       if(Math.abs(y - p2.y) == 0) {
@@ -99,6 +103,8 @@ function scanline(y, minX, maxX, p1, p2, p3) {
     var p = new Point3D(px, py, pz);
     
     var n, v, l, r, color;
+    
+    color = new Vector(0, 0, 0);
   
     if(p.z < zBuffer[y][x]) {
       zBuffer[y][x] = p.z;
@@ -119,15 +125,24 @@ function scanline(y, minX, maxX, p1, p2, p3) {
         n = n.scalarProduct(-1);
       }
       
+      var colores;
+      if (barycenter.dist <= 0.2) {
+        colores = new Vector(0.8, 0.1, 0.1);
+      } else if (barycenter.dist > 0.2 && barycenter.dist <= 0.4) {
+        colores = new Vector(0.1, 0.8, 0.1);
+      } else {
+        colores = new Vector(0.1, 0.1, 0.8);
+      }
+      
       if(n.dotProduct(l) < 0) {
-        color = ambient.color(l, null, v, null, p);
+       color = ambient.color(l, null, v, null, p, colores);
       } else {
         r = n.scalarProduct(2 * n.dotProduct(l)).sub(l);
         
         if(r.dotProduct(v) < 0) {
-          color = ambient.color(l, n, v, null, p);
+         color = ambient.color(l, n, v, null, p, colores);
         } else {
-          color = ambient.color(l, n, v, r, p);
+          color = ambient.color(l, n, v, r, p, colores);
         }
       }
   
@@ -135,3 +150,4 @@ function scanline(y, minX, maxX, p1, p2, p3) {
     }
   }
 }
+
