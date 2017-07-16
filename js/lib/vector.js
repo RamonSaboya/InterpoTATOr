@@ -74,6 +74,12 @@ Vector.prototype.gramSchmidt = function(vector) {
   return this.sub(vector.orthogonalProjection(this));
 };
 
+Vector.prototype.round = function() {
+  this.x = Math.floor(this.x);
+  this.y = Math.floor(this.y);
+  this.z = Math.floor(this.z);
+}
+
 Vector.prototype.clone = function() {
   return new Vector(this.x, this.y, this.z);
 };
