@@ -78,7 +78,7 @@ function processCamera(data) {
   
   document.getElementById(CAMERA_FILE_ID).value = "";
   
-  processAmbient(lastAmbientData);
+  processLight(lastLightData);
   processObject(lastObjectData);
 }
 
