@@ -86,7 +86,11 @@ function processTriangle(triangle, index) {
 
 function scanline(y, minX, maxX, p1, p2, p3) {
   for(var x = minX; x <= maxX; x++) {
-    var barycenter = findBarycenter(x, y, p1, p2, p3);
+    if(x < 0 || y < 0 || x >= width || y >= height) {
+      continue;
+    }
+    
+    var barycenter = findBarycenterCoordinates(x, y, p1, p2, p3);
     
     var p13D = points[p1.index];
     var p23D = points[p2.index];
@@ -98,8 +102,8 @@ function scanline(y, minX, maxX, p1, p2, p3) {
     
     var p = new Point3D(px, py, pz);
     
-    var n, v, l, r, color;
-  
+    var n, v, l, color;
+    
     if(p.z < zBuffer[y][x]) {
       zBuffer[y][x] = p.z;
       
@@ -109,7 +113,7 @@ function scanline(y, minX, maxX, p1, p2, p3) {
       
       n = new Vector(nx, ny, nz);
       v = p.toVector().scalarProduct(-1);
-      l = ambient.pl.sub(p).toVector();
+      l = light.pl.sub(p).toVector();
       
       n.normalize();
       v.normalize();
@@ -119,17 +123,7 @@ function scanline(y, minX, maxX, p1, p2, p3) {
         n = n.scalarProduct(-1);
       }
       
-      if(n.dotProduct(l) < 0) {
-        color = ambient.color(l, null, v, null, p);
-      } else {
-        r = n.scalarProduct(2 * n.dotProduct(l)).sub(l);
-        
-        if(r.dotProduct(v) < 0) {
-          color = ambient.color(l, n, v, null, p);
-        } else {
-          color = ambient.color(l, n, v, r, p);
-        }
-      }
+      color = light.phong(n, v, l, p, x, y);
   
       paint(x, y, color);
     }

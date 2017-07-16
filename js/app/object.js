@@ -16,15 +16,15 @@ function uploadObject(event) {
     return function(event) {
       var data = this.result.split('\n');
       
-      if(!isAmbientReady()) {
-        alert("Você precisa definir o ambiente.");
+      if(!isCameraReady()) {
+        alert("Você precisa definir a câmera.");
         document.getElementById(OBJECT_FILE_ID).value = "";
         
         return;
       }
       
-      if(!isCameraReady()) {
-        alert("Você precisa definir a câmera.");
+      if(!isLightReady()) {
+        alert("Você precisa definir o a iluminação.");
         document.getElementById(OBJECT_FILE_ID).value = "";
         
         return;
@@ -64,9 +64,9 @@ function processObject(data) {
     
     point = point.changeBase(camera);
     
-    if(ambient.ex != null) {
-      minBB = Math.min(minBB, ambient.getAxis(point));
-      maxBB = Math.max(maxBB, ambient.getAxis(point));
+    if(light.axis != null) {
+      minBB = Math.min(minBB, light.getAxis(point));
+      maxBB = Math.max(maxBB, light.getAxis(point));
     }
     
     points.push(point);
