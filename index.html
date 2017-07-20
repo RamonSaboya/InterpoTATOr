@@ -1,59 +1,65 @@
 <html>
-  <head>
-    <title>InterpoTATOr</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <meta charset="utf-8">
-    <script src="js/lib/models/vector.js"></script>
-    <script src="js/lib/models/point2d.js"></script>
-    <script src="js/lib/models/point3d.js"></script>
-    <script src="js/lib/models/triangle.js"></script>
-    <script src="js/lib/zbuffer.js"></script>
-  </head>
-  <body>
-    <div id="header">
-      <div id="work-info">
-        <div id="university" class="header-item bottom">
-          <p>Universidade federal de Pernambuco</p>
-          <p>Recife, PE</p>
-        </div>
-        <div id="title" class="header-item">
-          <p class="text-title">
-            Textura por interpola&ccedil;&atilde;o linear
-          </p>
-        </div>
-        <div id="discipline" class="header-item bottom">
-          <p>Processamento Gr&aacute;fico</p>
-          <p>Professor S&iacute;lvio Melo</p>
-        </div>
+
+<head>
+  <title>InterpoTATOr</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="utf-8">
+  <script src="js/lib/models/vector.js"></script>
+  <script src="js/lib/models/point2d.js"></script>
+  <script src="js/lib/models/point3d.js"></script>
+  <script src="js/lib/models/triangle.js"></script>
+  <script src="js/lib/bresenham.js"></script>
+  <script src="js/lib/scanline.js"></script>
+  <script src="js/lib/phong-reflection.js"></script>
+</head>
+
+<body>
+  <div id="header">
+    <div id="work-info">
+      <div id="university" class="header-item bottom">
+        <p>Universidade federal de Pernambuco</p>
+        <p>Recife, PE</p>
+      </div>
+      <div id="title" class="header-item">
+        <p class="text-title">
+          Textura por interpola&ccedil;&atilde;o linear
+        </p>
+      </div>
+      <div id="discipline" class="header-item bottom">
+        <p>Processamento Gr&aacute;fico</p>
+        <p>Professor S&iacute;lvio Melo</p>
       </div>
     </div>
-    <div id="stage">
-      <canvas id="canvas"></canvas>
-    </div>
-    <div id="footer">
-      <div id="config">
-        <form id="object" class="config-container">
-          <div class="config-item">Objeto</div>
-          <input id="object-file" class="config-item" type="file" value="file">
-        </form>
-        <div class="config-container">
-          <div class="config-item">Camera</div>
-          <input id="camera-file" class="config-item" type="file" value="file">
-        </div>
-        <div class="config-container">
-          <div class="config-item">Ilumina&ccedil;&atilde;o</div>
-          <input id="light-file" class="config-item" type="file" value="file">
-        </div>
+  </div>
+  <div id="stage">
+    <canvas id="canvas"></canvas>
+  </div>
+  <div id="footer">
+    <div id="config">
+      <form id="object" class="config-container">
+        <div class="config-item">Objeto</div>
+        <input id="object-file" class="config-item" type="file" value="file">
+      </form>
+      <div class="config-container">
+        <div class="config-item">Camera</div>
+        <input id="camera-file" class="config-item" type="file" value="file">
       </div>
-      <div id="credits">
-        <p title="pruuu">Jo&atilde;o Filipe Moura</p>
-        <p>Luiz Henrique Oliveira</p>
-        <p>Ramon de Saboya</p>
+      <div class="config-container">
+        <div class="config-item">Ilumina&ccedil;&atilde;o</div>
+        <input id="light-file" class="config-item" type="file" value="file">
       </div>
     </div>
-  </body>
-  <script src="js/app/main.js" charset="utf-8"></script>
-  <script src="js/app/camera.js" charset="utf-8"></script>
-  <script src="js/app/light.js" charset="utf-8"></script>
-  <script src="js/app/object.js" charset="utf-8"></script>
+    <div id="credits">
+      <p title="pruuu">Jo&atilde;o Filipe Moura</p>
+      <p>Luiz Henrique Oliveira</p>
+      <p>Ramon de Saboya</p>
+    </div>
+  </div>
+</body>
+
+<script src="js/app/main.js" charset="utf-8"></script>
+<script src="js/app/camera.js" charset="utf-8"></script>
+<script src="js/app/light.js" charset="utf-8"></script>
+<script src="js/app/object.js" charset="utf-8"></script>
+
 </html>
