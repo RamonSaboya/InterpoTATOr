@@ -58,7 +58,12 @@ function processTriangle(triangle) {
   if (!triangle.isTriangle()) {
     return;
   }
-  
+
+  // Verifica se alguma parte do triângulo está dentro da tela
+  if (triangle.outOfBounds()) {
+    return;
+  }
+
   triangle.calculateCoefficientsDeterminant();
 
   var minY = p1.y;
@@ -101,8 +106,10 @@ function processTriangle(triangle) {
 
   // Itera sobre todas as linhas do triângulo
   for (var y = minY; y <= maxY; y++) {
-    // Chama o algoritmo de scanline
-    scanline(y, Math.floor(minX), Math.floor(maxX), triangle);
+    // Chama o algoritmo de scanline se a linha estiver localizada na tela
+    if (y >= 0 && y < height) {
+      scanline(y, Math.floor(minX), Math.floor(maxX), triangle);
+    }
 
     // Verifica se é necessário alterar os coeficientes angulares
     if (alternate && (y == p2.y || y == p3.y)) {
@@ -137,18 +144,13 @@ function scanline(y, minX, maxX, triangle) {
   var p1 = triangle.p1;
   var p2 = triangle.p2;
   var p3 = triangle.p3;
-  
+
   // Vértices em coordenadas da câmera
   var p13D = points3D[p1.index];
   var p23D = points3D[p2.index];
   var p33D = points3D[p3.index];
 
-  for (var x = minX; x <= maxX; x++) {
-    // Caso o pixel esteja fora dos limites da tela
-    if (x < 0 || y < 0 || x >= width || y >= height) {
-      continue;
-    }
-
+  for (var x = Math.max(minX, 0); x <= Math.min(maxX, width - 1); x++) {
     // Coordenadas baricêntricas do ponto em relação ao triângulo
     var barycenter = triangle.findBarycenterCoordinates(x, y);
 

@@ -102,10 +102,36 @@ Triangle.prototype.findBarycenterCoordinates = function(x, y) {
 // Verifica se os pontos formam um triângulo
 Triangle.prototype.isTriangle = function() {
   var p1 = this.p1;
-  var p3 = this.p2;
-  var p2 = this.p3;
+  var p2 = this.p2;
+  var p3 = this.p3;
 
   return !((p1.x == p2.x && p1.y == p2.y) || (p1.x == p3.x && p1.y == p3.y) || (p2.x == p3.x && p2.y == p3.y));
+}
+
+// Verifica se o triângulo está totalmente fora da tela
+Triangle.prototype.outOfBounds = function() {
+  var p1 = this.p1;
+  var p2 = this.p2;
+  var p3 = this.p3;
+
+  // Verifica as coordenadas X
+  if (p1.x < 0 && p2.x < 0 && p3.x < 0) {
+    return true;
+  }
+  if (p1.x > width && p2.x > width && p3.x > width) {
+    return true;
+  }
+
+  // Verifica as coordenadas Y
+  if (p1.y < 0 && p2.y < 0 && p3.y < 0) {
+    return true;
+  }
+  if (p1.y > height && p2.y > height && p3.y > height) {
+    return true;
+  }
+
+  // Tem alguma parte dentro da tela
+  return false;
 }
 
 // Clona o triângulo
