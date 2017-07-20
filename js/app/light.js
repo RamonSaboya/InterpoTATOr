@@ -135,12 +135,20 @@ document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, f
 
 // Processa as linhas do input da iluminação
 function processLight(data) {
+  // Limpa o campo do arquivo de input
+  document.getElementById(LIGHT_FILE_ID).value = "";
+
   if (data == null) {
     return;
   }
 
   // Salva o input
   lastLightData = data;
+
+  // Não precisa continuar se a câmera não estiver definida
+  if (!isCameraReady()) {
+    return;
+  }
 
   light = null;
 
@@ -175,9 +183,6 @@ function processLight(data) {
 
   // Muda a base da luz para a base da câmera
   light.pl = light.pl.changeBase(camera);
-
-  // Limpa o campo do arquivo de input
-  document.getElementById(LIGHT_FILE_ID).value = "";
 
   // Atualiza a luz e o objeto
   processObject(lastObjectData);

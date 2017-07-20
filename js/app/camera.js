@@ -51,6 +51,9 @@ document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera,
 
 // Processa as linhas do input da câmera
 function processCamera(data) {
+  // Limpa o campo do arquivo de input
+  document.getElementById(CAMERA_FILE_ID).value = "";
+
   if (data == null) {
     return;
   }
@@ -77,9 +80,6 @@ function processCamera(data) {
 
   // Gera a matriz de transformação
   camera.genAlpha();
-
-  // Limpa o campo do arquivo de input
-  document.getElementById(CAMERA_FILE_ID).value = "";
 
   // Atualiza a luz e o objeto
   processLight(lastLightData);

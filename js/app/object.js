@@ -28,12 +28,25 @@ document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject,
 
 // Processa as linhas do input do objeto
 function processObject(data) {
+  // Limpa o campo do arquivo de input
+  document.getElementById(OBJECT_FILE_ID).value = "";
+
   if (data == null) {
     return;
   }
 
   // Salva o input
   lastObjectData = data;
+
+  // Não precisa continuar se a câmera não estiver definida
+  if (!isCameraReady()) {
+    return;
+  }
+
+  // Não precisa continuar se a iluminação não estiver definida
+  if (!isLightReady()) {
+    return;
+  }
 
   points3D = [];
   triangles2D = [];
@@ -116,9 +129,6 @@ function processObject(data) {
       zBuffer[c][cpp] = Infinity;
     }
   }
-
-  // Limpa o campo do arquivo de input
-  document.getElementById(OBJECT_FILE_ID).value = "";
 
   // Se a luz e camera estiverem definidas, desenha o objeto
   if (isCameraReady() && isLightReady()) {
