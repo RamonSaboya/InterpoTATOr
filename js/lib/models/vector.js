@@ -94,3 +94,16 @@ Vector.prototype.round = function() {
 Vector.prototype.clone = function() {
   return new Vector(this.x, this.y, this.z);
 };
+
+// Pega o vetor em relação as coordenadas baricêntricas do triangulo 2D
+function getVectorFromBarycenterCoordinates(p1, p2, p3, barycenterCoordinates) {
+  var alpha = barycenterCoordinates.alpha;
+  var beta = barycenterCoordinates.beta;
+  var gamma = barycenterCoordinates.gamma;
+
+  var px = p1.normal.x * alpha + p2.normal.x * beta + p3.normal.x * gamma;
+  var py = p1.normal.y * alpha + p2.normal.y * beta + p3.normal.y * gamma;
+  var pz = p1.normal.z * alpha + p2.normal.z * beta + p3.normal.z * gamma;
+
+  return new Vector(px, py, pz);
+}

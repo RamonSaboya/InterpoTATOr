@@ -120,16 +120,6 @@ function processObject(data) {
     triangles2D.push(new Triangle(p1, p2, p3));
   }
 
-  // Inicia o zBuffer como Infinito
-  zBuffer = new Array(height);
-  for (var c = 0; c < zBuffer.length; c++) {
-    zBuffer[c] = new Array(width);
-
-    for (var cpp = 0; cpp < zBuffer[c].length; cpp++) {
-      zBuffer[c][cpp] = Infinity;
-    }
-  }
-
   // Se a luz e camera estiverem definidas, desenha o objeto
   if (isCameraReady() && isLightReady()) {
     draw();

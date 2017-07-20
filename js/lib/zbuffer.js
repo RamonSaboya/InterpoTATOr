@@ -152,29 +152,22 @@ function scanline(y, minX, maxX, triangle) {
 
   for (var x = Math.max(minX, 0); x <= Math.min(maxX, width - 1); x++) {
     // Coordenadas baricêntricas do ponto em relação ao triângulo
-    var barycenter = triangle.findBarycenterCoordinates(x, y);
+    var barycenterCoordinates = triangle.findBarycenterCoordinates(x, y);
 
     // Encontra o pixel que será pintado na tela
-    var px = p13D.x * barycenter.alpha + p23D.x * barycenter.beta + p33D.x * barycenter.gamma;
-    var py = p13D.y * barycenter.alpha + p23D.y * barycenter.beta + p33D.y * barycenter.gamma;
-    var pz = p13D.z * barycenter.alpha + p23D.z * barycenter.beta + p33D.z * barycenter.gamma;
-    var p = new Point3D(px, py, pz);
+    var pl = getPointFromBarycenterCoordinates(p13D, p23D, p33D, barycenterCoordinates);
 
     var n, v, l, color;
 
     // Processa o pixel no array do zBuffer
     // Apenas considera o ponto, caso se Z seja menor que o atual conhecido para o X e Y
-    if (p.z < zBuffer[y][x]) {
+    if (pl.z < zBuffer[y][x]) {
       // Atualiza o Z para o X e Y
-      zBuffer[y][x] = p.z;
+      zBuffer[y][x] = pl.z;
 
-      // Encontra o vetor N para o ponto
-      var nx = p13D.normal.x * barycenter.alpha + p23D.normal.x * barycenter.beta + p33D.normal.x * barycenter.gamma;
-      var ny = p13D.normal.y * barycenter.alpha + p23D.normal.y * barycenter.beta + p33D.normal.y * barycenter.gamma;
-      var nz = p13D.normal.z * barycenter.alpha + p23D.normal.z * barycenter.beta + p33D.normal.z * barycenter.gamma;
-      n = new Vector(nx, ny, nz); // Vetor normal do ponto
-      v = p.toVector().scalarMultiplication(-1); // Calcula o vetor que aponta do ponto para a câmera
-      l = light.pl.sub(p).toVector(); // Calcula o vetor que aponta do ponto para a luz
+      n = getVectorFromBarycenterCoordinates(p13D, p23D, p33D, barycenterCoordinates); // Vetor normal do ponto
+      v = pl.toVector().scalarMultiplication(-1); // Calcula o vetor que aponta do ponto para a câmera
+      l = light.pl.sub(pl).toVector(); // Calcula o vetor que aponta do ponto para a luz
 
       // Normaliza os vetores
       n.normalize();
@@ -187,7 +180,7 @@ function scanline(y, minX, maxX, triangle) {
       }
 
       // Aplica os vetores no Phong Reflection Model
-      color = light.phong(n, v, l, p);
+      color = light.phong(n, v, l, pl);
 
       // Pinta o pixel na tela
       // Como 2 vértices tem o Y mínimo, nunca será necessário alterar o coeficiente

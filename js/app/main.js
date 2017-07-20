@@ -32,6 +32,16 @@ function draw() {
   // Limpa o canvas
   ctx.clearRect(0, 0, width, height);
 
+  // Inicia o zBuffer como Infinito
+  zBuffer = new Array(height);
+  for (var c = 0; c < zBuffer.length; c++) {
+    zBuffer[c] = new Array(width);
+
+    for (var cpp = 0; cpp < zBuffer[c].length; cpp++) {
+      zBuffer[c][cpp] = Infinity;
+    }
+  }
+
   // Itera sobre todos os triângulos da tela
   for (var c = 0; c < triangles2D.length; c++) {
     var triangle = triangles2D[c];

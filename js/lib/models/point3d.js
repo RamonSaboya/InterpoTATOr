@@ -88,3 +88,16 @@ Point3D.prototype.toVector = function() {
 Point3D.prototype.clone = function() {
   return new Point3D(this.x, this.y, this.z);
 };
+
+// Pega o ponto em relação as coordenadas baricêntricas do triangulo 2D
+function getPointFromBarycenterCoordinates(p1, p2, p3, barycenterCoordinates) {
+  var alpha = barycenterCoordinates.alpha;
+  var beta = barycenterCoordinates.beta;
+  var gamma = barycenterCoordinates.gamma;
+
+  var px = p1.x * alpha + p2.x * beta + p3.x * gamma;
+  var py = p1.y * alpha + p2.y * beta + p3.y * gamma;
+  var pz = p1.z * alpha + p2.z * beta + p3.z * gamma;
+
+  return new Point3D(px, py, pz);
+}
