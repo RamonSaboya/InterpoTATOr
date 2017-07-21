@@ -1,4 +1,4 @@
-# InterpoTATOr Textura por interpolação linear
+# InterpoTATOr: Textura por interpolação linear
 
 A aplicação pode ser acessada em: [InterpoTATOr](https://ramonsaboya.github.io/InterpoTATOr/)
 
@@ -21,6 +21,7 @@ O usuário, através de arquivos-texto, entra com:
     - *t* quantidade de triângulos;
     - *x*, *y*, *z* coordenadas, como números de ponto flutuante;
     - *p1*, *p2*, *p3* índices de pontos (vértices dos triângulos), como números inteiros.
+
 - Atributos da câmera virtual, no formato:
     ```
     x y z
@@ -34,6 +35,7 @@ O usuário, através de arquivos-texto, entra com:
     - *d* escala da câmera virtual, como número de ponto flutuante positivo;
     - *hx* tamanho do eixo X, como número de ponto flutuante positivo;
     - *hy* tamanho do eixo y, como número de ponto flutuante positivo.
+
 - Atributos da cena (iluminação), no formato:
     ```
     x y z
