@@ -57,6 +57,9 @@ setChangeListener(LIGHT_FILE_ID, uploadLight);
 
 // Processa as linhas do input da iluminação
 function processLight(data) {
+  // Limpa o camp de input do arquivo
+  clearFileInput(LIGHT_FILE_ID);
+
   // Define o nome do arquivo no elemento HTML
   setLabelDivText(LIGHT_LABEL_ID, lightFileName);
 

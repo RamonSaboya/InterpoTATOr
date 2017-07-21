@@ -6,6 +6,10 @@ function setChangeListener(element, method) {
   document.getElementById(element).addEventListener('change', method, false);
 }
 
+function clearFileInput(element) {
+  document.getElementById(element).value = "";
+}
+
 function setLabelDivText(element, text) {
   document.getElementById(element).getElementsByTagName("div")[0].innerHTML = text;
 }

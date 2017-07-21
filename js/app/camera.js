@@ -55,6 +55,9 @@ setChangeListener(CAMERA_FILE_ID, uploadCamera);
 
 // Processa as linhas do input da câmera
 function processCamera(data) {
+  // Limpa o camp de input do arquivo
+  clearFileInput(CAMERA_FILE_ID);
+
   // Define o nome do arquivo no elemento HTML
   setLabelDivText(CAMERA_LABEL_ID, cameraFileName);
 

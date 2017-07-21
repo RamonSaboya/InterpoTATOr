@@ -32,6 +32,9 @@ setChangeListener(OBJECT_FILE_ID, uploadObject);
 
 // Processa as linhas do input do objeto
 function processObject(data) {
+  // Limpa o camp de input do arquivo
+  clearFileInput(OBJECT_FILE_ID);
+
   // Define o nome do arquivo no elemento HTML
   setLabelDivText(OBJECT_LABEL_ID, objectFileName);
 
