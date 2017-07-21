@@ -3,18 +3,9 @@ function Point3D(x, y, z) {
   this.x = x;
   this.y = y;
   this.z = z;
+
   this.normal = new Vector(0, 0, 0);
 }
-
-// Soma as coordendas com as de outro ponto
-Point3D.prototype.add = function(point) {
-  var x = this.x + point.x;
-  var y = this.y + point.y;
-  var z = this.z + point.z;
-
-  // Retorna um ponto em um novo objeto
-  return new Point3D(x, y, z);
-};
 
 // Subtrai as coordenadas pelas de outro ponto
 Point3D.prototype.sub = function(point) {
@@ -23,7 +14,7 @@ Point3D.prototype.sub = function(point) {
   var z = this.z - point.z;
 
   // Retorna um ponto em um novo objeto
-  return new Point3D(x, y, z);
+  return new Vector(x, y, z);
 };
 
 // Realiza a multiplicação por uma constante
@@ -52,12 +43,14 @@ Point3D.prototype.changeBase = function(camera) {
   var view = this.clone();
 
   // Coordenadas subtraidas pelo ponto de da camera
-  var v = view.sub(camera.c);
+  view.x -= camera.c.x;
+  view.y -= camera.c.y;
+  view.z -= camera.c.z;
 
   // Multiplicado pela matriz de mudança de base
-  var r = v.matrixMultiplication(camera.alpha);
+  var point = view.matrixMultiplication(camera.alpha);
 
-  return r;
+  return point;
 };
 
 // Projeta um ponto na tela
@@ -67,21 +60,13 @@ Point3D.prototype.projectPoint = function(camera, index) {
   var y = (camera.d / camera.hy) * (this.y / this.z);
 
   // Acomoda o ponto nos limites da tela
-  var pp = new Point2D((x + 1) * width / 2, (1 - y) * height / 2, index);
+  x = (x + 1) * width / 2;
+  y = (1 - y) * height / 2;
 
-  return pp;
-};
+  // Cria o objeto do ponto
+  var point = new Point2D(x, y, index);
 
-// Seta o X, Y e Z com a função chão
-Point3D.prototype.round = function() {
-  this.x = Math.floor(this.x);
-  this.y = Math.floor(this.y);
-  this.z = Math.floor(this.z);
-};
-
-// Cria um vetor com as coordenadas do ponto
-Point3D.prototype.toVector = function() {
-  return new Vector(this.x, this.y, this.z);
+  return point;
 };
 
 // Clona o ponto

@@ -26,8 +26,8 @@ function scanline(y, minX, maxX, triangle) {
       zBuffer[y][x] = pl.z;
 
       n = getVectorFromBarycenterCoordinates(p13D, p23D, p33D, barycenterCoordinates); // Vetor normal do ponto
-      v = pl.toVector().scalarMultiplication(-1); // Calcula o vetor que aponta do ponto para a câmera
-      l = light.pl.sub(pl).toVector(); // Calcula o vetor que aponta do ponto para a luz
+      v = new Vector(pl.x, pl.y, pl.z).scalarMultiplication(-1); // Calcula o vetor que aponta do ponto para a câmera
+      l = light.pl.sub(pl); // Calcula o vetor que aponta do ponto para a luz
 
       // Normaliza os vetores
       n.normalize();
