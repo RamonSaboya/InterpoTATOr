@@ -10,9 +10,9 @@ function Camera(c, n, v, d, hx, hy) {
   this.c = c; // Ponto da câmera no espaço 3D
   this.n = n; // Vetor da direção da câmera
   this.v = v; // Vetor da rotação da câmera
-  this.d = d; // d
-  this.hx = hx; // hx
-  this.hy = hy; // hy
+  this.d = d; // Escala da câmera
+  this.hx = hx; // Tamanho do eixo X
+  this.hy = hy; // Tamanho do eixo Y
 
   this.alpha = []; // Matriz de transformação
 }
