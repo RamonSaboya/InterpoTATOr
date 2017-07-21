@@ -1,57 +1,41 @@
 body {
   position: absolute;
-
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-
   margin: 0;
   padding: 0;
   border: 0;
-
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-flow: column nowrap;
-
-  background: radial-gradient(black 15%, transparent 16%) 0 0,
-              radial-gradient(black 15%, transparent 16%) 8px 8px,
-              radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-              radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
   background-color: #282828;
   background-size: 16px 16px;
-
   cursor: default;
   user-select: none;
-
   overflow: hidden;
 }
 
 #header {
   order: 1;
   flex: 0 0 auto;
-
   display: flex;
   flex-flow: column nowrap;
-
   padding: 10px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-
   background-color: rgba(0, 0, 0, 0.3);
 }
 
 #stage {
   order: 2;
   flex: 1;
-
   display: flex;
   flex-flow: column nowrap;
-
   border-right: 3px solid rgba(255, 255, 255, 0.3);
   border-left: 3px solid rgba(255, 255, 255, 0.3);
-
   overflow: hidden;
   cursor: crosshair;
 }
@@ -59,20 +43,16 @@ body {
 #footer {
   order: 3;
   flex: 0 1 auto;
-
   display: flex;
   flex-flow: column nowrap;
-
   padding: 5px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-
   background-color: rgba(0, 0, 0, 0.3);
 }
 
 #work-info {
   order: 1;
   flex: 0 0 auto;
-
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -82,22 +62,18 @@ body {
 #instructions {
   order: 2;
   flex: 0 0 auto;
-
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-
   padding-top: 8px;
   border-top: 3px solid rgba(255, 255, 255, 0.3);
-
   font-size: 90%;
 }
 
 #inner-stage {
   order: 1;
   flex: 1;
-
   width: 100%;
   height: 100%;
 }
@@ -105,7 +81,6 @@ body {
 #config {
   order: 1;
   flex: 0 0 auto;
-
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
@@ -119,7 +94,6 @@ body {
 #credits {
   order: 2;
   flex: 0 0 auto;
-
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
@@ -134,7 +108,6 @@ body {
 .header-item {
   order: 1;
   flex: 1;
-
   margin: 10px;
 }
 
@@ -149,20 +122,40 @@ body {
 .config-container {
   order: 1;
   flex: 1;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
-
   margin: 0 10px 0 10px;
 }
 
 .config-item {
   order: 1;
   flex: 0 0 auto;
-  
   color: white;
+}
+
+.inner-label {
+  min-width: 200px;
+  max-width: 200px;
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+}
+
+label {
+  box-shadow: 0px 0px 3px 2px rgba(255, 255, 255, 1);
+  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
+  margin: 15px 2px 2px 2px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+label:hover {
+  box-shadow: none;
+  border: 2px solid white;
+  margin: 13px 0px 0px 0px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 input {
@@ -173,18 +166,15 @@ p {
   margin: 0;
   padding: 0;
   border: 0;
-
   width: auto;
-
   color: white;
 }
 
-#credits > p {
+#credits>p {
   color: grey;
-
   margin: 0 10px 0 10px;
 }
 
-#instructions > p {
+#instructions>p {
   margin: 0 10px 0 10px;
 }

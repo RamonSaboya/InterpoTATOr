@@ -1,4 +1,5 @@
 const LIGHT_FILE_ID = "light-file"
+const LIGHT_LABEL_ID = "light-label";
 
 var light = null;
 
@@ -6,6 +7,7 @@ var minBB = Infinity;
 var maxBB = -Infinity;
 
 var lastLightData = null;
+var lightFileName = LABEL_TEXT;
 
 function Light(pl, ka, ia, kd, id1, ks, is, n, axis, id2) {
   this.pl = pl; // Posição da luz no espaço 3D
@@ -42,6 +44,8 @@ function uploadLight(event) {
     return function(event) {
       var data = this.result.split('\n');
 
+      lightFileName = file.name;
+
       processLight(data);
     };
   })(file);
@@ -49,22 +53,32 @@ function uploadLight(event) {
 }
 
 // Define o listener do evento de upload de arquivo
-document.getElementById(LIGHT_FILE_ID).addEventListener('change', uploadLight, false);
+setChangeListener(LIGHT_FILE_ID, uploadLight);
 
 // Processa as linhas do input da iluminação
 function processLight(data) {
-  // Limpa o campo do arquivo de input
-  document.getElementById(LIGHT_FILE_ID).value = "";
+  // Limpa o camp de input do arquivo
+  clearFileInput(LIGHT_FILE_ID);
+
+  // Define o nome do arquivo no elemento HTML
+  setLabelDivText(LIGHT_LABEL_ID, lightFileName);
 
   if (data == null) {
     return;
   }
+
+  // Define a função de hover do botão
+  setHoverBoxShadow(LIGHT_LABEL_ID, GREEN);
 
   // Salva o input
   lastLightData = data;
 
   // Não precisa continuar se a câmera não estiver definida
   if (!isCameraReady()) {
+    if (lastCameraData == null) {
+      setHoverBoxShadow(CAMERA_LABEL_ID, RED);
+    }
+
     return;
   }
 

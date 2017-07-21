@@ -1,4 +1,5 @@
-const OBJECT_FILE_ID = "object-file"
+const OBJECT_FILE_ID = "object-file";
+const OBJECT_LABEL_ID = "object-label";
 
 var points3D = [];
 
@@ -6,6 +7,7 @@ var pointsAmount = 0;
 var trianglesAmount = 0;
 
 var lastObjectData = null;
+var objectFileName = LABEL_TEXT;
 
 // Trata o input do arquivo do objeto
 function uploadObject(event) {
@@ -17,6 +19,8 @@ function uploadObject(event) {
       // Divide o input pelas linhas
       var data = this.result.split('\n');
 
+      objectFileName = file.name;
+
       processObject(data);
     };
   })(file);
@@ -24,27 +28,41 @@ function uploadObject(event) {
 }
 
 // Define o listener do evento de upload de arquivo
-document.getElementById(OBJECT_FILE_ID).addEventListener('change', uploadObject, false);
+setChangeListener(OBJECT_FILE_ID, uploadObject);
 
 // Processa as linhas do input do objeto
 function processObject(data) {
-  // Limpa o campo do arquivo de input
-  document.getElementById(OBJECT_FILE_ID).value = "";
+  // Limpa o camp de input do arquivo
+  clearFileInput(OBJECT_FILE_ID);
+
+  // Define o nome do arquivo no elemento HTML
+  setLabelDivText(OBJECT_LABEL_ID, objectFileName);
 
   if (data == null) {
     return;
   }
 
+  // Define a função de hover do botão
+  setHoverBoxShadow(OBJECT_LABEL_ID, GREEN);
+
   // Salva o input
   lastObjectData = data;
 
-  // Não precisa continuar se a câmera não estiver definida
-  if (!isCameraReady()) {
+  // Não precisa continuar se a iluminação não estiver definida
+  if (!isLightReady()) {
+    if (lastLightData == null) {
+      setHoverBoxShadow(LIGHT_LABEL_ID, RED);
+    }
+
     return;
   }
 
-  // Não precisa continuar se a iluminação não estiver definida
-  if (!isLightReady()) {
+  // Não precisa continuar se a câmera não estiver definida
+  if (!isCameraReady()) {
+    if (lastCameraData == null) {
+      setHoverBoxShadow(CAMERA_LABEL_ID, RED);
+    }
+
     return;
   }
 
