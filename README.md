@@ -1,4 +1,4 @@
-# InterpoTATOr Textura por interpolação linear
+# InterpoTATOr: Textura por interpolação linear
 
 A aplicação pode ser acessada em: [InterpoTATOr](https://ramonsaboya.github.io/InterpoTATOr/)
 
