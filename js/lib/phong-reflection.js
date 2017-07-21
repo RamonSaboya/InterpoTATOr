@@ -1,15 +1,15 @@
-// Aplica os vetores no modelo de phong para encontrar a cor do ponto
+// Aplica os vetores no modelo de phong para encontrar a cor do pixel
 function phongReflectionModel(n, v, l, p) {
   var ambient, diffuse, specular, color;
   var lnDot, rvDot;
 
-  // Inicia os vetores de cor
+  // Inicia os vetores dos componentes
   ambient = light.ia.scalarMultiplication(light.ka); // Componente ambiental
   diffuse = new Vector(0, 0, 0); // Componente difuso
   specular = new Vector(0, 0, 0); // Componente especular
 
   // Produto escalar do vetor que aponta para a luz e do vetor normal
-  // Indica se a luz está incidindo no ponto
+  // Indica se a luz está incidindo no pixel
   lnDot = l.dotProduct(n);
 
   // O componente difuso só é aplicado se o ângulo entre os vetores L e N for < 90
@@ -36,46 +36,36 @@ function phongReflectionModel(n, v, l, p) {
     diffuse.z *= light.is.z;
 
     // Multiplica o componente difuso pela constante e pelo produto escalar de L e N
-    // Define a intensidade do componente difuso no ponto
+    // Define a intensidade do componente difuso no pixel
     diffuse = diffuse.scalarMultiplication(light.kd * lnDot);
 
-    // Calcula o vetor R, que é a reflexão da luz no ponto
+    // Calcula o vetor R, que é a reflexão da luz no pixel
     var r = n.scalarMultiplication(2 * lnDot).sub(l);
     r.normalize();
 
     // Produto escalar do vetor que aponta para a camera e o vetor da reflexão
-    // Indica se a câmera captura a reflexão da luz no ponto
+    // Indica se a câmera captura a reflexão da luz no pixel
     rvDot = r.dotProduct(v);
 
     // O componente especular só é aplicado se o ângulo entre os vetores R e V for < 90
     // Dessa forma, o componente especular só está presente, se o difuso também estiver
     if (rvDot > 0) {
-      // Define o realce do componente especular no ponto
+      // Define o realce do componente especular no pixel
       var shininess = Math.pow(rvDot, light.n);
 
       // Multiplica o componente especular pela constante e pelo realce
-      // Define a intensidade do componente especular no ponto
+      // Define a intensidade do componente especular no pixel
       specular = light.is.scalarMultiplication(light.ks * shininess);
     }
   }
 
-  // Define todos os componentes como inteiros
-  ambient.round();
-  diffuse.round();
-  specular.round();
+  // Somas os componentes aplicados no pixel
+  var red = ambient.x + diffuse.x + specular.x;
+  var green = ambient.y + diffuse.y + specular.y;
+  var blue = ambient.z + diffuse.z + specular.z;
 
-  // Cor do ponto armazenada no formato de um vetor
-  color = new Vector(0, 0, 0);
-
-  // Somas os componentes aplicados no ponto
-  color = color.add(ambient);
-  color = color.add(diffuse);
-  color = color.add(specular);
-
-  // Trunca os componentes RGB da cor em 255
-  color.x = Math.min(color.x, 255);
-  color.y = Math.min(color.y, 255);
-  color.z = Math.min(color.z, 255);
+  // Cor do pixel
+  color = new Color(red, green, blue);
 
   return color;
 }

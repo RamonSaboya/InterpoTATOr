@@ -53,6 +53,6 @@ function draw() {
 
 // Pinta um pixel na tela com uma cor
 function paint(x, y, color) {
-  ctx.fillStyle = "rgb(" + color.x + ", " + color.y + ", " + color.z + ")";
+  ctx.fillStyle = color.canvasStyle();
   ctx.fillRect(x, y, 1, 1);
 }
