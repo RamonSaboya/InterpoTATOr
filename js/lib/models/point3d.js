@@ -7,7 +7,7 @@ function Point3D(x, y, z) {
   this.normal = new Vector(0, 0, 0);
 }
 
-// Subtrai as coordenadas pelas de outro ponto
+// Subtrai o ponto por outro, formando um vetor
 Point3D.prototype.sub = function(point) {
   var x = this.x - point.x;
   var y = this.y - point.y;
