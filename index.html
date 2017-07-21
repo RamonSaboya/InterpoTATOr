@@ -8,6 +8,7 @@
   <script src="js/lib/models/point2d.js"></script>
   <script src="js/lib/models/point3d.js"></script>
   <script src="js/lib/models/triangle.js"></script>
+  <script src="js/lib/html-util.js"></script>
   <script src="js/lib/bresenham.js"></script>
   <script src="js/lib/scanline.js"></script>
   <script src="js/lib/phong-reflection.js"></script>
@@ -38,15 +39,18 @@
     <div id="config">
       <form id="object" class="config-container">
         <div class="config-item">Objeto</div>
-        <input id="object-file" class="config-item" type="file" value="file">
+        <input id="object-file" class="config-item inputfile" type="file" value="file" accept=".byu" style="display: none;">
+        <label id="object-label" class="config-item" for="object-file"><div class="inner-label">Escolha um arquivo</div></label>
       </form>
       <div class="config-container">
         <div class="config-item">Camera</div>
-        <input id="camera-file" class="config-item" type="file" value="file">
+        <input id="camera-file" class="config-item inputfile" type="file" value="file" accept=".cfg" style="display: none;">
+        <label id="camera-label" class="config-item" for="camera-file"><div class="inner-label">Escolha um arquivo</div></label>
       </div>
       <div class="config-container">
         <div class="config-item">Ilumina&ccedil;&atilde;o</div>
-        <input id="light-file" class="config-item" type="file" value="file">
+        <input id="light-file" class="config-item inputfile" type="file" value="file" accept=".txt" style="display: none;">
+        <label id="light-label" class="config-item" for="light-file"><div class="inner-label">Escolha um arquivo</div></label>
       </div>
     </div>
     <div id="credits">

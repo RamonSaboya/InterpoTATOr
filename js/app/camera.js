@@ -1,8 +1,10 @@
 const CAMERA_FILE_ID = "camera-file";
+const CAMERA_LABEL_ID = "camera-label";
 
 var camera = null;
 
 var lastCameraData = null;
+var cameraFileName = LABEL_TEXT;
 
 function Camera(c, n, v, d, hx, hy) {
   this.c = c; // Ponto da câmera no espaço 3D
@@ -40,6 +42,8 @@ function uploadCamera(event) {
       // Divide o input pelas linhas
       var data = this.result.split('\n');
 
+      cameraFileName = file.name;
+
       processCamera(data);
     };
   })(file);
@@ -47,16 +51,19 @@ function uploadCamera(event) {
 }
 
 // Define o listener do evento de upload de arquivo
-document.getElementById(CAMERA_FILE_ID).addEventListener('change', uploadCamera, false);
+setChangeListener(CAMERA_FILE_ID, uploadCamera);
 
 // Processa as linhas do input da câmera
 function processCamera(data) {
-  // Limpa o campo do arquivo de input
-  document.getElementById(CAMERA_FILE_ID).value = "";
+  // Define o nome do arquivo no elemento HTML
+  setLabelDivText(CAMERA_LABEL_ID, cameraFileName);
 
   if (data == null) {
     return;
   }
+
+  // Define a função de hover do botão
+  setHoverBoxShadow(CAMERA_LABEL_ID, GREEN);
 
   // Salva o input
   lastCameraData = data;

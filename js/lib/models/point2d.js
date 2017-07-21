@@ -5,7 +5,7 @@ function Point2D(x, y, index) {
 
   // Index do ponto 3D correspondente
   this.index = index;
-  
+
   this.round();
 }
 
