@@ -1,16 +1,14 @@
-// Triângulo
-function Triangle(p1, p2, p3) {
+// Triângulo de pontos 2D
+function Triangle2D(p1, p2, p3) {
   this.p1 = p1;
   this.p2 = p2;
   this.p3 = p3;
-
-  this.normal = new Vector(0, 0, 0);
 
   this.det = null;
 }
 
 // Ordena as vértices do triângulo pelo menor y
-Triangle.prototype.sort = function() {
+Triangle2D.prototype.sort = function() {
   var aux;
 
   // Compara o y do ponto 1 e 2
@@ -38,47 +36,29 @@ Triangle.prototype.sort = function() {
   }
 };
 
-// Acha a normal da superfície
-Triangle.prototype.calculateNormal = function() {
-  // Calcula o vetor que vai de P1 a P2
-  var x = this.p2.x - this.p1.x;
-  var y = this.p2.y - this.p1.y;
-  var z = this.p2.z - this.p1.z;
-  var v12 = new Vector(x, y, z);
-
-  // Calcula o vetor que vai de P1 para P3
-  x = this.p3.x - this.p1.x;
-  y = this.p3.y - this.p1.y;
-  z = this.p3.z - this.p1.z;
-  var v13 = new Vector(x, y, z);
-
-  this.normal = v12.crossProduct(v13);
-  this.normal.normalize();
-};
-
 // Pré-processa a determinante da matriz de coeficientes para cálculo das coordenadas baricêntricas
-Triangle.prototype.calculateCoefficientsDeterminant = function() {
+Triangle2D.prototype.calculateCoefficientsDeterminant = function() {
   this.det = (this.p1.x - this.p3.x) * (this.p2.y - this.p3.y) - (this.p2.x - this.p3.x) * (this.p1.y - this.p3.y);
 }
 
 // Encontra as coordenadas baricêntricas para o ponto passado
-Triangle.prototype.findBarycenterCoordinates = function(x, y) {
+Triangle2D.prototype.findBarycenterCoordinates = function(x, y) {
   /* Encontra as coordenadas baricêntricas, desenvolvendo o seguinte cálculo:
     X = alfa * X1 + beta * X2 + gama * X3
     Y = alfa * Y1 + beta * Y2 + gama * Y3
-    
+
     Como temos que alfa + beta + gama = 1, podemos
     X = alfa * X1 + beta * X2 + (1 - alfa - gama) * X3
     Y = alfa * Y1 + beta * Y2 + (1 - alfa - gama) * Y3
-    
+
     Organizando
     X = alfa * (X1 - X3) + beta * (X2 - X3) + X3
     Y = alfa * (Y1 - Y3) + beta * (Y2 - Y3) + Y3
-    
+
     Dessa forma, com R sendo a coordenada (X, Y)
     | alfa || (X1 - X3) (X2 - X3) | = R - R3
     | beta || (Y1 - Y3) (Y2 - Y3) |
-    
+
     Assim, é possível achar o alfa e beta fazendo uma relação das determinantes das matrizes
   */
 
@@ -100,7 +80,7 @@ Triangle.prototype.findBarycenterCoordinates = function(x, y) {
 }
 
 // Verifica se os pontos formam um triângulo
-Triangle.prototype.isTriangle = function() {
+Triangle2D.prototype.isTriangle = function() {
   var p1 = this.p1;
   var p2 = this.p2;
   var p3 = this.p3;
@@ -109,7 +89,7 @@ Triangle.prototype.isTriangle = function() {
 }
 
 // Verifica se o triângulo está totalmente fora da tela
-Triangle.prototype.outOfBounds = function() {
+Triangle2D.prototype.outOfBounds = function() {
   var p1 = this.p1;
   var p2 = this.p2;
   var p3 = this.p3;
@@ -135,6 +115,6 @@ Triangle.prototype.outOfBounds = function() {
 }
 
 // Clona o triângulo
-Triangle.prototype.clone = function() {
+Triangle2D.prototype.clone = function() {
   return new Triangle(this.p1, this.p2, this.p3);
 }

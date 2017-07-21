@@ -112,7 +112,7 @@ function processObject(data) {
     var p2 = points3D[triangles[c][1]];
     var p3 = points3D[triangles[c][2]];
 
-    var triangle = new Triangle(p1, p2, p3);
+    var triangle = new Triangle3D(p1, p2, p3);
     triangle.calculateNormal();
 
     // Soma a normal do triângulo na normal dos pontos (iniciada com 0, 0, 0)
@@ -135,7 +135,7 @@ function processObject(data) {
     var p2 = points2D[triangles[c][1]];
     var p3 = points2D[triangles[c][2]];
 
-    triangles2D.push(new Triangle(p1, p2, p3));
+    triangles2D.push(new Triangle2D(p1, p2, p3));
   }
 
   // Se a luz e camera estiverem definidas, desenha o objeto
@@ -150,5 +150,6 @@ function isObjectReady() {
     return false;
   }
 
+  // Verifica se a quantidade de pontos e de triângulos bate com os da entrada
   return points3D.length == pointsAmount && triangles.length == trianglesAmount;
 }
